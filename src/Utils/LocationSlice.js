@@ -24,7 +24,7 @@ export const getLocation = createAsyncThunk("LocationThunk", async() => {
     
     data.location = apiRes.display_name
 
-    console.log(data)
+   
 
     return data
 } )

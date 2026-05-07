@@ -14,10 +14,18 @@ const FilterResturant = () => {
      const location = useLocation()
      const item = location.state
      const entity = item.entityId
-    
-    
-     const fixedUrl = entity.replace("swiggy://", "https://dummy.com/")
-     const collectionId = fixedUrl && (new URL(fixedUrl).searchParams.get("collection_id"))
+     
+
+    let collectionId = null
+    if(entity.includes("swiggy://"))
+    {
+        const fixedUrl = entity.replace("swiggy://", "https://dummy.com/")
+        collectionId = fixedUrl ? new URL(fixedUrl).searchParams.get("collection_id"): null
+    }
+    else
+    {
+        collectionId = entity
+    }
 
      const { lat, long } = useSelector((store) => store.location.data)
      const FilterName = item.action.text.replaceAll(" ", "")
@@ -68,7 +76,7 @@ const FilterResturant = () => {
     const title = data[0].card.card.title
     const discription = data[0].card.card.description
     const resturants = data?.slice(3)
-    console.log(resturants)
+    
 
 
 

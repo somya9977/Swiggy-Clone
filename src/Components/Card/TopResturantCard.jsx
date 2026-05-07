@@ -5,7 +5,7 @@ const TopResturantCard = ({ item, size = "md" }) => {
 
   // size mapping
   const sizeClasses = {
-    sm: "w-65",
+    sm: "w-68",
     md: "w-72",
     lg: "w-75",
     xl: "w-96",
@@ -33,7 +33,7 @@ const TopResturantCard = ({ item, size = "md" }) => {
 
         <div className="flex items-center text-sm text-gray-700 mt-1">
           <span className="flex items-center gap-1 text-black px-1 py-[2px] rounded text-xs font-semibold">
-            <img src="/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyMCIgaGVpZ2h0PSIyMCIgdmlld0JveD0iMCAwIDIwIDIwIiBmaWxsPSJub25lIiBhcmlhLWhpZGRlbj0idHJ1ZSIgc3Ryb2tlQ29sb3I9InJnYmEoMiwgNiwgMTIsIDAuOTIpIiB.svg" alt="" />
+            <img src="star.svg" alt="" />
              {item.info.avgRatingString}
           </span>
 
