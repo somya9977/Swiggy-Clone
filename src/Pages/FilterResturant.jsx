@@ -1,4 +1,4 @@
-import { useLocation } from "react-router-dom"
+import { useLocation, useNavigate } from "react-router-dom"
 import NavBar from "../Components/NavBar"
 import { useEffect, useState } from "react"
 import Loader from "../Components/Loader"
@@ -14,6 +14,8 @@ const FilterResturant = () => {
      const location = useLocation()
      const item = location.state
      const entity = item.entityId
+
+     const navigate = useNavigate()
      
 
     let collectionId = null
@@ -99,7 +101,9 @@ const FilterResturant = () => {
        <div className=" grid grid-cols-4 gap-6 mt-8 w-270 ml-53">
         {resturants &&
             resturants.map((item, index) => (
+                <div onClick={() => navigate("/menue", {state : item})} > 
             <TopResturantCard key={index} item={item.card.card} size="sm"/>
+            </div>
             ))}
         </div>
 

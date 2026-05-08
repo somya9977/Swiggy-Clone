@@ -9,12 +9,11 @@ const NavBar = () => {
     const navigate = useNavigate()
 
     const truncateText = (text, maxLength) => {
-            if (!text) return "Detecting location..."; 
+            if (!text) return "Detecting location...";
 
-            return text.length > maxLength
-                ? text.slice(0, maxLength) + "..."
+            return text.length > maxLength ? text.slice(0, maxLength) + "..."
                 : text;
-            };
+            }
 
 
   return (

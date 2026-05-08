@@ -10,7 +10,8 @@ const Menue = () => {
     const item = location.state
     const [data, setData] = useState(null)
 
-    const id = item.info.id
+    console.log(item)
+   const id =item?.info?.id || item?.card?.card?.info?.id
     console.log(id)
 
     useEffect(() => {

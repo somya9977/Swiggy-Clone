@@ -1,7 +1,8 @@
+import { useNavigate } from "react-router-dom"
 import TopResturantCard from "./Card/TopResturantCard"
 
 const MainResturant = ({data}) => {
-    // console.log(data)
+    const navigate = useNavigate()
 
     const title = data[2].card.card.title
 
@@ -17,7 +18,9 @@ const MainResturant = ({data}) => {
 
           <div className="grid grid-cols-4 gap-6 mt-6 w-7xl ">
               {resturant.map((item) => (
+                <div onClick={() => navigate("/menue", {state : item})}> 
                 <TopResturantCard key={item.info.id} item={item} size="sm" />
+                </div>
               ))}
           </div>
 

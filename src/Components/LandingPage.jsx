@@ -1,8 +1,16 @@
+import { useSelector } from "react-redux"
 import {  useNavigate } from "react-router-dom"
 
 
 const LandingPage = () => {
     const navigate = useNavigate()
+    const location = useSelector((store) => store.location?.data?.location)
+    const truncateText = (text, maxLength) => {
+            if (!text) return "Detecting location...";
+
+            return text.length > maxLength ? text.slice(0, maxLength) + "..." : text
+            }
+
   return (
     <div className="h-screen bg-[#FF5200]">
 
@@ -52,7 +60,7 @@ const LandingPage = () => {
   <div className="bg-white h-18 w-90 rounded-2xl flex items-center px-6">
     <input
       type="text"
-      placeholder="Sector 5, Noida, Uttar Pradesh"
+      placeholder={truncateText(location, 30)}
       className="w-full outline-none text-lg font-medium"
     />
   </div>
