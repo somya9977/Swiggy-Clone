@@ -39,13 +39,46 @@ const Resturant = () => {
 
                 
             })
+             .catch((err) => {
+
+                  console.log(err)
+
+                  setData("CORS_ERROR")
+
+                })
     }
 
       
   }, [lat, long, HomeData])
 
-  console.log(data && data[0].card.card.title)
+  
 
+
+  if (data === "CORS_ERROR") {
+  return (
+    <>
+      <NavBar />
+
+      <div className="flex items-center justify-center h-[80vh]">
+        <div className="bg-white shadow-xl rounded-2xl p-8 text-center border">
+          
+          <h1 className="text-3xl font-bold text-red-500 mb-4">
+            CORS Error
+          </h1>
+
+          <p className="text-gray-600">
+            Unable to fetch restaurant data.
+          </p>
+
+          <p className="text-sm text-gray-400 mt-2">
+            Try enabling CORS extension or backend proxy.
+          </p>
+
+        </div>
+      </div>
+    </>
+  )
+}
 
 if (data?.[0]?.card?.card?.title === "Location Unserviceable") {
   return (
