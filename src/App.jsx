@@ -7,6 +7,7 @@ import { useDispatch } from "react-redux"
 import { getLocation } from "./Utils/LocationSlice"
 import FilterResturant from "./Pages/FilterResturant"
 import Menue from "./Pages/Menue"
+import Cart from "./Pages/Cart"
 
 
 const App = () => {
@@ -24,6 +25,7 @@ const App = () => {
         <Route path="/resturant" element = {<Resturant />} />
         <Route path="/filter" element = {<FilterResturant />} />
         <Route path="/menue" element = {<Menue />} />
+        <Route path = "/cart" element = {<Cart />} />
       </Routes>
     </div>
   )

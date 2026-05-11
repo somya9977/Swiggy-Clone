@@ -1,8 +1,13 @@
+import { useDispatch } from "react-redux"
+import { addToCart } from "../../Utils/CartSlice"
+
 const cdn = import.meta.env.VITE_SWIGGY_IMG_URL
 
 const MenueAccordianCard = ({ items }) => {
   const info = items?.card?.info
   const imgUrl = info?.imageId
+  const dispatch = useDispatch()
+ 
 
   return (
     <div className="border-b border-gray-300 flex justify-between items-center py-6">
@@ -51,7 +56,11 @@ const MenueAccordianCard = ({ items }) => {
           />
         )}
 
-        <button className="absolute bottom-[-10px] left-1/2 -translate-x-1/2 bg-white border shadow-md px-6 py-1 rounded-lg font-bold text-green-600">
+        <button onClick={() => {
+          dispatch(addToCart(info))
+        }} 
+        className="absolute bottom-[-10px] left-1/2 -translate-x-1/2 bg-white border shadow-md px-6 py-1 rounded-lg font-bold text-green-600"
+        >
           ADD
         </button>
 

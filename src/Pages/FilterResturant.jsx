@@ -38,7 +38,7 @@ const FilterResturant = () => {
 
    
 
-    const api = `https://www.swiggy.com/dapi/restaurants/list/v5?lat=23.2255976&lng=79.8940806&collection=${collectionId}&tags=layout_CCS_${FilterName}&sortBy=&filters=&type=rcv2&offset=0&page_type=null`
+    const api = `https://www.swiggy.com/dapi/restaurants/list/v5?lat=${lat}&lng=${long}&collection=${collectionId}&tags=layout_CCS_${FilterName}&sortBy=&filters=&type=rcv2&offset=0&page_type=null`
 
     useEffect(() => {
          if (!lat || !long) return

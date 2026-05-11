@@ -3,10 +3,14 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCartArrowDown } from "@fortawesome/free-solid-svg-icons";
 import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
+import { useState } from "react";
+import CartCard from "./Card/CartCard";
 
 const NavBar = () => {
     const location = useSelector((store) => store.location?.data?.location)
     const navigate = useNavigate()
+    const [showCart, SetShowCart] = useState(false)
+     const cartitem = useSelector((store) => store.cart.cartItem)
 
     const truncateText = (text, maxLength) => {
             if (!text) return "Detecting location...";
@@ -65,20 +69,30 @@ const NavBar = () => {
                 </h1>
             </div>
             
-                <div className="relative flex items-center">
+                <div onMouseEnter={() => SetShowCart(true)}
+                     onMouseLeave={() => SetShowCart(false)}
+                     onClick={() => navigate("/cart")}
+                     className="relative flex items-center"
+                >
     
                         
                         <FontAwesomeIcon icon={faCartArrowDown} className="text-black text-xl" />
 
                     
                         <span className="absolute -top-2 -right-2 bg-red-500 text-white text-xs px-1.5 rounded-full">
-                            0
+                            {cartitem.length}
                         </span>
 
                         
-                        <button className="ml-2 font-bold">
+                        <button  className="ml-2 font-bold">
                             Cart
                         </button>
+
+                       {showCart && (
+                        <div className="absolute top-12 right-0 bg-white shadow-xl rounded-xl p-4 h-70 w-90">
+                            <CartCard />
+                        </div>
+                        )}
 
                 </div>
 

@@ -18,7 +18,7 @@ const MainResturant = ({data}) => {
 
           <div className="grid grid-cols-4 gap-6 mt-6 w-7xl ">
               {resturant.map((item) => (
-                <div onClick={() => navigate("/menue", {state : item})}> 
+                <div onClick={() => navigate("/menue", {state : item, key : item.info?.id})}> 
                 <TopResturantCard key={item.info.id} item={item} size="sm" />
                 </div>
               ))}

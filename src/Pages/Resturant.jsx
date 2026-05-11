@@ -6,56 +6,112 @@ import Loader from "../Components/Loader"
 import TopRestorant from "../Components/TopRestorant"
 import MainResturant from "../Components/MainResturant"
 import { setHomeData } from "../Utils/CacheDataSlice"
-
-
+import CheckSwiggyStatus from "../Components/checkSwiggyStatus"
 
 const Resturant = () => {
 
   const [data, setData] = useState(null)
+  const [loading, setLoading] = useState(true)
+  const [error, setError] = useState(null)
+
   const dispatch = useDispatch()
   const HomeData = useSelector((store) => store.dataSlice.homeData)
- 
   const { lat, long } = useSelector((store) => store.location.data)
+
+  const handleCards = (cards) => {
+
+    const status = CheckSwiggyStatus?.(cards || [])
+
+    if (status === "UNSERVICEABLE") {
+      setError("UNSERVICEABLE")
+      setData(null)
+      return false
+    }
+
+    if (status === "EMPTY") {
+      setError("EMPTY")
+      setData(null)
+      return false
+    }
+
+    setError(null)
+    setData(cards)
+    return true
+  }
 
   useEffect(() => {
 
-    if(HomeData && !data)
-    {
-        setData(HomeData.data.cards)
+    const fetchData = async () => {
+      setLoading(true)
+
+      try {
+
+        
+        if (HomeData?.data?.cards) {
+          handleCards(HomeData.data.cards)
+          setLoading(false)
           return
+        }
+
+        if (!lat || !long) {
+          setLoading(false)
+          return
+        }
+
+        const res = await fetch(
+          `https://www.swiggy.com/dapi/restaurants/list/v5?lat=${lat}&lng=${long}&is-seo-homepage-enabled=true&page_type=DESKTOP_WEB_LISTING`
+        )
+
+        const json = await res.json()
+
+        const cards = json?.data?.cards
+
+        const isValid = handleCards(cards)
+
+        if (isValid) {
+          dispatch(setHomeData(json))
+        }
+
+      } catch (err) {
+        setError("ERROR")
+        setData(null)
+      } finally {
+        setLoading(false)
+      }
     }
-    
-    if (!lat || !long) return
 
-       if (!HomeData) {
-          fetch(`https://www.swiggy.com/dapi/restaurants/list/v5?lat=23.1815&lng=79.9864&is-seo-homepage-enabled=true&page_type=DESKTOP_WEB_LISTING`)
-            .then((res) => res.json())
-            .then((data) => {
+    fetchData()
 
-            setData(data.data.cards)
-            dispatch(setHomeData(data))
-
-                
-            })
-    }
-
-      
   }, [lat, long, HomeData])
-
- 
-  
 
   return (
     <div>
       <NavBar />
-      {!data ? (
-        <Loader />   // sirf content load ho raha
-      ) : (
+
+      {loading ? (
+        <Loader />
+      ) : error === "UNSERVICEABLE" ? (
+        <div className="text-center mt-10">
+          <h2>Location not serviceable 😕</h2>
+        </div>
+      ) : error === "EMPTY" ? (
+        <div className="text-center mt-10">
+          No restaurants found 🍽️
+        </div>
+      ) : error === "ERROR" ? (
+        <div className="text-center mt-10 text-red-500">
+          Something went wrong ⚠️
+        </div>
+      ) : data ? (
         <>
-        <FoodSuggestion data={data} />
-        <TopRestorant data = {data} />
-        <MainResturant data = {data} />
+          <FoodSuggestion data={data} />
+          <TopRestorant data={data} />
+          <MainResturant data={data} />
         </>
+      ) : (
+        <div className="text-center mt-10">
+          No Data Available
+        </div>
       )}
     </div>
   )
