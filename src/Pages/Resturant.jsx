@@ -20,7 +20,7 @@ const Resturant = () => {
 
   const handleCards = (cards) => {
 
-    const status = CheckSwiggyStatus?.(cards || [])
+   const status = CheckSwiggyStatus(cards || [])
 
     if (status === "UNSERVICEABLE") {
       setError("UNSERVICEABLE")
@@ -47,11 +47,12 @@ const Resturant = () => {
       try {
 
         
-        if (HomeData?.data?.cards) {
-          handleCards(HomeData.data.cards)
-          setLoading(false)
-          return
-        }
+       if (HomeData?.data?.cards) {
+            const cards = HomeData.data.cards
+            handleCards(cards)
+            setLoading(false)
+            return
+          }
 
         if (!lat || !long) {
           setLoading(false)
