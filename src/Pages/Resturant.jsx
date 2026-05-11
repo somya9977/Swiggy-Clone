@@ -6,7 +6,7 @@ import Loader from "../Components/Loader"
 import TopRestorant from "../Components/TopRestorant"
 import MainResturant from "../Components/MainResturant"
 import { setHomeData } from "../Utils/CacheDataSlice"
-import CheckSwiggyStatus from "../Components/checkSwiggyStatus"
+import CheckSwiggyStatus from "../Components/CheckSwiggyStatus"
 
 const Resturant = () => {
 
