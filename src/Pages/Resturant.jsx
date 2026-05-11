@@ -110,7 +110,7 @@ const Resturant = () => {
         </>
       ) : (
         <div className="text-center mt-10">
-          No Data Available
+          <Loader />
         </div>
       )}
     </div>
