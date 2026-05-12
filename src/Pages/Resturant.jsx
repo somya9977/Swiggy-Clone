@@ -7,120 +7,178 @@ import TopRestorant from "../Components/TopRestorant"
 import MainResturant from "../Components/MainResturant"
 import { setHomeData } from "../Utils/CacheDataSlice"
 
-
-
 const Resturant = () => {
 
   const [data, setData] = useState(null)
-  const dispatch = useDispatch()
-  const HomeData = useSelector((store) => store.dataSlice.homeData)
- 
-  const { lat, long } = useSelector((store) => store.location.data)
 
-  
+  const dispatch = useDispatch()
+
+  const HomeData = useSelector(
+    (store) => store.dataSlice.homeData
+  )
+
+  // SAFE SELECTOR
+  const { lat, long } = useSelector(
+    (store) => store.location?.data || {}
+  )
+
+
 
   useEffect(() => {
 
-    if(HomeData && !data)
-    {
-        setData(HomeData.data.cards)
-          return
+    // CACHE DATA
+    if (HomeData) {
+      setData(HomeData.data.cards)
+      return
     }
-    
+
     if (!lat || !long) return
 
-       if (!HomeData) {
-          fetch(`https://www.swiggy.com/dapi/restaurants/list/v5?lat=${lat}&lng=${long}&is-seo-homepage-enabled=true&page_type=DESKTOP_WEB_LISTING`)
-            .then((res) => res.json())
-            .then((data) => {
 
-            setData(data.data.cards)
-            dispatch(setHomeData(data))
+    fetch(
+      `https://www.swiggy.com/dapi/restaurants/list/v5?lat=${lat}&lng=${long}&is-seo-homepage-enabled=true&page_type=DESKTOP_WEB_LISTING`
+    )
+      .then((res) => res.json())
 
-                
-            })
-             .catch((err) => {
+      .then((data) => {
 
-                  console.log(err)
+        setData(data.data.cards)
 
-                  setData("CORS_ERROR")
+        dispatch(setHomeData(data))
 
-                })
-    }
+      })
 
-      
-  }, [lat, long, HomeData])
+      .catch((err) => {
 
-  
+        console.log(err)
+
+        setData("CORS_ERROR")
+
+      })
+
+  }, [lat, long, HomeData, dispatch])
 
 
+
+  // CORS ERROR
   if (data === "CORS_ERROR") {
-  return (
-    <>
-      <NavBar />
 
-      <div className="flex items-center justify-center h-[80vh]">
-        <div className="bg-white shadow-xl rounded-2xl p-8 text-center border">
-          
-          <h1 className="text-3xl font-bold text-red-500 mb-4">
-            CORS Error
-          </h1>
+    return (
 
-          <p className="text-gray-600">
-            Unable to fetch restaurant data.
-          </p>
+      <div className="min-h-screen bg-gray-50">
 
-          <p className="text-sm text-gray-400 mt-2">
-            Try enabling CORS extension or backend proxy.
-          </p>
+        <NavBar />
 
-        </div>
-      </div>
-    </>
-  )
-}
+        <div className="flex items-center justify-center min-h-[80vh] px-4">
 
-if (data?.[0]?.card?.card?.title === "Location Unserviceable") {
-  return (
-    <>
-      <NavBar />
+          <div className="bg-white shadow-xl rounded-2xl p-6 md:p-8 text-center border w-full max-w-md">
 
-      <div className="flex items-center justify-center h-[80vh] px-4">
-        <div className="bg-white shadow-xl rounded-2xl p-8 text-center max-w-md w-full border">
-          
-          <h1 className="text-3xl font-bold text-red-500 mb-4">
-            Location Unserviceable
-          </h1>
+            <h1 className="text-2xl md:text-3xl font-bold text-red-500 mb-4">
+              CORS Error
+            </h1>
 
-          <p className="text-gray-600 text-lg">
-            Sorry, Swiggy is currently not available at your location.
-          </p>
+            <p className="text-gray-600 text-sm md:text-base">
+              Unable to fetch restaurant data.
+            </p>
 
-          <p className="text-gray-400 text-sm mt-3">
-            Try changing your delivery location.
-          </p>
+            <p className="text-xs md:text-sm text-gray-400 mt-2">
+              Try enabling CORS extension or backend proxy.
+            </p>
+
+          </div>
 
         </div>
-      </div>
-    </>
-  )
-}
 
- 
-  
+      </div>
+    )
+  }
+
+
+
+  // LOCATION UNSERVICEABLE
+  if (data?.[0]?.card?.card?.title === "Location Unserviceable") {
+
+    return (
+
+      <div className="min-h-screen bg-gray-50">
+
+        <NavBar />
+
+        <div className="flex items-center justify-center min-h-[80vh] px-4">
+
+          <div className="bg-white shadow-xl rounded-2xl p-6 md:p-8 text-center border w-full max-w-md">
+
+            <h1 className="text-2xl md:text-3xl font-bold text-red-500 mb-4">
+              Location Unserviceable
+            </h1>
+
+            <p className="text-gray-600 text-base md:text-lg">
+              Sorry, Swiggy is currently not available at your location.
+            </p>
+
+            <p className="text-gray-400 text-sm mt-3">
+              Try changing your delivery location.
+            </p>
+
+          </div>
+
+        </div>
+
+      </div>
+    )
+  }
+
+
 
   return (
-    <div>
+
+    <div className="min-h-screen bg-gray-50 overflow-x-hidden">
+
       <NavBar />
+
       {!data ? (
-        <Loader />   // sirf content load ho raha
+
+        // LOADER
+        <div className="flex justify-center items-center min-h-[80vh]">
+          <Loader />
+        </div>
+
       ) : (
-        <>
-        <FoodSuggestion data={data} />
-        <TopRestorant data = {data} />
-        <MainResturant data = {data} />
-        </>
+
+        // MAIN CONTENT
+        <main className="
+          w-full
+          max-w-7xl
+          mx-auto
+          px-3
+          sm:px-5
+          md:px-8
+          lg:px-10
+          xl:px-14
+          py-4
+        ">
+
+          {/* FOOD SUGGESTION */}
+          <section className="mb-8 md:mb-10">
+            <FoodSuggestion data={data} />
+          </section>
+
+
+          {/* TOP RESTAURANT */}
+          <section className="mb-8 md:mb-10">
+            <TopRestorant data={data} />
+          </section>
+
+
+          {/* MAIN RESTAURANT */}
+          <section>
+            <MainResturant data={data} />
+          </section>
+
+        </main>
+
       )}
+
     </div>
   )
 }
