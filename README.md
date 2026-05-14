@@ -84,4 +84,4 @@ Cart Management Logic
 🍔 Backend Integration
 👨‍💻 Author
 
-Built with ❤️ by Somya Thakur
+# Built with ❤️ by Somya Thakur
