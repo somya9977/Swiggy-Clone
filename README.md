@@ -28,6 +28,12 @@ git clone <your-repository-url>
 2️⃣ Install Dependencies
 npm install
 
+# 📂 Project Setup
+1️⃣ Clone the Repository
+git clone <your-repository-url>
+2️⃣ Install Dependencies
+npm install
+
 # 3️⃣ Important: Enable CORS Extension
 
 Before running the project, you must enable a CORS browser extension because Swiggy APIs block requests from localhost.
