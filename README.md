@@ -1,16 +1,87 @@
-# React + Vite
+# 🍔 Swiggy Clone
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+A fully responsive Swiggy Clone built using React.js that allows users to browse restaurants, view menus, add items to cart, and place orders.
+This project is focused on learning modern frontend development concepts like component-based architecture, routing, state management, API handling, and responsive UI design.
 
-Currently, two official plugins are available:
+# 🚀 Features
+🔍 Search Restaurants
+📍 Detect User Location
+🍽️ Restaurant Menu Page
+🛒 Add to Cart Functionality
+➕ Increase / Decrease Quantity
+💳 Checkout Page UI
+📱 Fully Responsive Design
+⚡ Fast Navigation using React Router
+🔄 State Management using Redux / Context API
+🌐 Live API Data Fetching
+🎨 Modern UI inspired by Swiggy
+🛠️ Tech Stack
+⚛️ React.js
+🎨 Tailwind CSS
+🧭 React Router DOM
+📦 Redux Toolkit / Context API
+🌐 Fetch API
+⚡ Vite
+📂 Project Setup
+1️⃣ Clone the Repository
+git clone <your-repository-url>
+2️⃣ Install Dependencies
+npm install
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+# 3️⃣ Important: Enable CORS Extension
 
-## React Compiler
+Before running the project, you must enable a CORS browser extension because Swiggy APIs block requests from localhost.
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+Install any CORS extension in your browser:
 
-## Expanding the ESLint configuration
+Chrome: "Allow CORS: Access-Control-Allow-Origin"
+Edge: "CORS Unblock"
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+After installing:
+
+Turn ON the extension
+Then run the project
+
+# ▶️ Run the Project
+npm run dev
+
+Project will run on:
+
+http://localhost:5173
+
+
+
+# Folder Structure
+src/
+│
+├── components/
+├── pages/
+├── utils/
+├── redux/
+├── context/
+├── assets/
+└── App.jsx
+
+
+# What I Learned
+React Component Architecture
+State Management
+API Integration
+Responsive Web Design
+Routing in React
+Performance Optimization
+Cart Management Logic
+
+
+
+
+# Future Improvements
+🔐 User Authentication
+💳 Real Payment Gateway
+❤️ Wishlist Feature
+🌙 Dark Mode
+📦 Order Tracking
+🍔 Backend Integration
+👨‍💻 Author
+
+Built with ❤️ by Somya Thakur
