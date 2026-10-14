@@ -7,9 +7,9 @@ import OfferCard from "./OfferCard"
 const MenueCard = ({data}) => {
 
     const title = data && data[0].card.card.text
-    let offerArr = data[3]?.card.card.gridElements.infoWithStyle.offers
+    let offerArr = data[3]?.card?.card?.gridElements?.infoWithStyle?.offers
 
-    const menue = data[5]?.groupedCard.cardGroupMap.REGULAR.cards.slice(2,15)
+    const menue = data[5]?.groupedCard?.cardGroupMap?.REGULAR?.cards.slice(2,15)
     console.log(menue)
 
 
