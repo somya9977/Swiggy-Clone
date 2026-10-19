@@ -4,12 +4,61 @@
     <meta charset="UTF-8" />
     <link rel="icon" type="image/png" href="/Logo/Logo.svg" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+
+    <script src="https://cdn.gotrust.tech/gotrust-dev/cookie-banner.bundle.js/gotrust-consent-shim.js" data-safe="true"></script>
+    <script src="https://cdn.gotrust.tech/gotrust-dev/cookie-banner.bundle.js/cookie-banner.bundle.js" data-safe="true"></script>
     
     <title>swiggy</title>
 
   </head>
   <body>
     <div id="root"></div>
+
+    <div id="gotrust-cookie-banner"></div>
+  
+  <!-- Add this script before closing </body> tag -->
+  <script>
+    (function () {
+      function ready(fn){
+        if (document.readyState !== 'loading') fn();
+        else document.addEventListener('DOMContentLoaded', fn);
+      }
+
+      function tryInit() {
+        if (!window.CookieBanner || typeof window.CookieBanner.init !== 'function') {
+          return false;
+        }
+
+        var el = document.querySelector('#gotrust-cookie-banner');
+        if (!el) return false;
+
+        if (el.__gotrustMounted) return true;
+
+        window.CookieBanner.init('#gotrust-cookie-banner', {
+          domainUrl: 'https://swiggy-clone-19.vercel.app/',
+          environment: 'https://dev.gotrust.tech',
+          domain_id: '6f24df8a-62a6-4156-b88b-b54cd5517ee3',
+        });
+        return true;
+      }
+
+      ready(function () {
+        if (tryInit()) return;
+
+        function onReady() { 
+          if (tryInit()) window.removeEventListener('CookieBannerReady', onReady); 
+        }
+        window.addEventListener('CookieBannerReady', onReady);
+
+        var attempts = 0;
+        var t = setInterval(function () {
+          attempts++;
+          if (tryInit() || attempts > 20) clearInterval(t);
+        }, 100);
+      });
+    })();
+  </script>
     
     <script type="module" src="/src/main.jsx"></script>
     
